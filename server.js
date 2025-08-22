@@ -55,7 +55,35 @@ app.get("/alunos/:id",(req, res)=>{
         res.status(404).json( {msg: "Aluno não encontrado"})
     }
 })
+app.post("/alunos",(req,res)=>{
+    const {nome,cor,idade}= req.body;
+    if(!nome || !cor || !idade){
+        return res.status(400).json({msg: "Nome cor e idade são obrigatórias"})
+    }
+    
+    // ALUNOS.length = 3
+    // ALUNOS[2]
 
+    // ALUNOS.lenght - 1
+    // ALUNOS[2].id = 3
+    // ALUNOS[2].id + 1
+    // id = 4
+
+    // if(ALUNOS.length > 0)
+    //     ALUNOS[ALUNOS.length - 1].id + 1
+    // else{
+    //     id = 1
+    // }
+    const id = ALUNOS.length > 0 ? ALUNOS[ALUNOS.length - 1].id + 1 : 1
+    const novoAluno = {
+            id,nome,cor,idade
+        }
+
+
+    console.log(novoAluno)
+    ALUNOS.push(novoAluno)
+    res.status(201).json({mensagen: "Aluno criado com sucesso"})
+})
 
 app.listen(PORT, ()=>{
     console.log(`Servidor rodando em http://localhost:${PORT}`)
