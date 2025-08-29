@@ -12,7 +12,7 @@ const ALUNOS = [
         id: 1, nome:"João Victor", cor: "azul", idade: 16 
     },
     {
-        id: 2, nome:"Henry Gay", cor: "preto", idade: 17 
+        id: 2, nome:"Diamante", cor: "preto", idade: 17 
     },
     {
         id: 3, nome:"Sem Ducha", cor: "amarelo", idade: 15
@@ -20,7 +20,7 @@ const ALUNOS = [
 ]
 app.get("/",(req, res)=>{
 res.json({
-    mensagem: "Henry é gayzao"
+    mensagem: "Henry é chatão"
 })
 })
 
@@ -96,6 +96,22 @@ app.delete("/alunos/:id",(req,res)=>{
     ALUNOS.splice(indice,1)
     res.status(204).json({msg:"Deletando..."})
 })
+app.put("/alunos/:id",(req,res) => {
+    const id = Number (req.params.id)
+    const {nome , cor , idade} = req.body
+    const indice = ALUNOS.findIndex(aluno => aluno.id === id)
+    if(indice === -1){
+        return res.status(404).json({msg:"Aluno não encontrado"})
+    }
+
+    if(!nome || !cor || !idade){
+        return res.status(400).json({msg: "Nome, cor e idade são obrigatórios"})
+    }
+    ALUNOS[indice] = {id, nome , cor , idade}
+    res.status(200).json({msg: "Aluno editado com sucsso"})
+})
+
+
 
 
 
